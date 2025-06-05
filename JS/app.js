@@ -37,7 +37,7 @@ const guardarlocalStorage = () => {
 };
 
 const cargarPelicula = () => {
-  if (cartelera.length > 0) {
+  if (cartelera.length !== 0) {
     cartelera.map((pelicula, indice) => dibujarFila(pelicula, indice + 1));
   }
 };
@@ -150,7 +150,12 @@ const tablaPeli = document.querySelector("tbody");
 let idPeliculaEditar = null;
 let creandoPelicula = true;
 
-btnAgregar.addEventListener("click", abrirModal);
+btnAgregar.addEventListener("click", ()=>{
+  limpiarForm();
+  idPeliculaEditar = null;
+  creandoPelicula = true;
+  abrirModal();
+});
 formularioPelicula.addEventListener("submit", (e) => {
   e.preventDefault();
   if (creandoPelicula) {

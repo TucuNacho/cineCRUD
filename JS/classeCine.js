@@ -61,6 +61,7 @@ export default class crearPelicula {
 
     toJSON() {
         return{
+            id: this.id,
             titulo: this.titulo,
             director: this.#director,
             anio: this.anio,
