@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="CSS/bootstrap.min.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/sweetalert2@11.22.0/dist/sweetalert2.min.css"
+      rel="stylesheet"
+    />
+
+    <title>TucuCines</title>
+  </head>
+  <body>
+    <header>
+      <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container">
+          <a class="navbar-brand" href="./index.html">Cartelera de Cine</a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" href="./pages/error404.html"
+                  >Nosotros</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <main class="container my-4">
+      <div class="d-flex justify-content-between">
+        <h1>Cartelera de TucuCines</h1>
+        <button class="btn btn-primary" id="btnAgregar">Agregar</button>
+      </div>
+      <section class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Nombre</th>
+              <th scope="col">Genero</th>
+              <th scope="col">Duracion</th>
+              <th scope="col">Año</th>
+              <th scope="col">Director</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </section>
+    </main>
+    <div
+      class="modal fade"
+      id="modalContacto"
+      tabindex="-1"
+      aria-labelledby="modalContactoLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="modalContactoLabel">
+              Agregar Pelicula
+            </h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <label for="titulo" class="form-label">Titulo</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="titulo"
+                  aria-describedby="Ingresar nombre de pelicula"
+                  minlength="2"
+                  maxlength="50"
+                  placeholder="EJ: Avenger: End Game"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="Genero" class="form-label">Genero</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="Genero"
+                  minlength="2"
+                  maxlength="50"
+                  placeholder="Ej: Ciencia ficcion"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="duracion" class="form-label">Duracion:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="duracion"
+                  placeholder="3horas 1minuto"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="año" class="form-label">Año</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="año"
+                  placeholder="Ej:2019"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="director" class="form-label">Director/es</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="director"
+                  placeholder="Ej: Anthony Russo"
+                />
+              </div>
+              <button type="submit" class="btn btn-primary mb-3">Enviar</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer></footer>
+    <script src="JS/bootstrap.min.js"></script>
+    <script src="JS/app.js" type="module"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.22.0/dist/sweetalert2.all.min.js
+"></script>
+  </body>
+</html>
