@@ -13,7 +13,8 @@ const crearPeli = () => {
     inputDirector.value,
     inputAnio.value,
     inputGenero.value,
-    inputDuracion.value
+    inputDuracion.value,
+    inputImagen.value
   );
 
   console.log(nuevaPelicula);
@@ -37,7 +38,7 @@ const guardarlocalStorage = () => {
 };
 
 const cargarPelicula = () => {
-  if (cartelera.length > 0) {
+  if (cartelera.length !== 0) {
     cartelera.map((pelicula, indice) => dibujarFila(pelicula, indice + 1));
   }
 };
@@ -53,7 +54,7 @@ const dibujarFila = (pelicula, indice) => {
               <td>
                 <button class="btn btn-warning" onclick='prepararPelicula("${pelicula.id}")'>Editar</button>
                 <button class="btn btn-danger" onclick='eliminarPeli("${pelicula.id}")' >Borrar</button>
-                <button class="btn btn-info">Ver</button>
+                <button class="btn btn-info" onclick='verPeli("${pelicula.id}")'>Ver</button>
               </td>
             </tr>`;
 };
@@ -97,6 +98,7 @@ window.prepararPelicula = (id) => {
   inputDuracion.value = posicionPeliculaBuscado.duracion;
   inputAnio.value = posicionPeliculaBuscado.anio;
   inputDirector.value = posicionPeliculaBuscado.director;
+  inputImagen.value = posicionPeliculaBuscado.imagen;
   abrirModal();
   idPeliculaEditar = id;
   creandoPelicula = false;
@@ -111,6 +113,7 @@ const editarPelicula = () => {
   cartelera[posicionPeliculaBuscado].duracion = inputDuracion.value;
   cartelera[posicionPeliculaBuscado].anio = inputAnio.value;
   cartelera[posicionPeliculaBuscado].director = inputDirector.value;
+  cartelera[posicionPeliculaBuscado].imagen = inputImagen.value;
   //actualizar el localStorage
   guardarlocalStorage();
   //limpiar el formulario
@@ -126,6 +129,7 @@ const editarPelicula = () => {
     filaEditada.children[3].textContent = cartelera[posicionPeliculaBuscado].duracion;
     filaEditada.children[4].textContent = cartelera[posicionPeliculaBuscado].anio;
     filaEditada.children[5].textContent = cartelera[posicionPeliculaBuscado].director;
+    filaEditada.children[6].textContent = cartelera[posicionPeliculaBuscado].imagen;
   }
 
   //agregar un mensaje al usuario
@@ -134,7 +138,12 @@ const editarPelicula = () => {
     text: `La pelicula ${cartelera[posicionPeliculaBuscado].titulo} fue modificado correctamente`,
     icon: "success",
   });
+
 };
+
+window.verPeli = (id) => {
+  window.location.href = "./pages/detallePeli.html?id="+id;
+}
 const modalContacto = new bootstrap.Modal(
   document.getElementById("modalContacto")
 );
@@ -145,12 +154,18 @@ const inputGenero = document.getElementById("Genero");
 const inputDuracion = document.getElementById("duracion");
 const inputAnio = document.getElementById("año");
 const inputDirector = document.getElementById("director");
+const inputImagen = document.getElementById("imagen");
 const cartelera = JSON.parse(localStorage.getItem("carteleraKey")) || [];
 const tablaPeli = document.querySelector("tbody");
 let idPeliculaEditar = null;
 let creandoPelicula = true;
 
-btnAgregar.addEventListener("click", abrirModal);
+btnAgregar.addEventListener("click", ()=>{
+  limpiarForm();
+  idPeliculaEditar = null;
+  creandoPelicula = true;
+  abrirModal();
+});
 formularioPelicula.addEventListener("submit", (e) => {
   e.preventDefault();
   if (creandoPelicula) {
