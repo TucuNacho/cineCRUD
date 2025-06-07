@@ -8,7 +8,8 @@ const abrirModal = () => {
 };
 
 const crearPeli = () => {
-  const nuevaPelicula = new crearPelicula(
+  if(validaciones()){
+    const nuevaPelicula = new crearPelicula(
     inputTitulo.value,
     inputDirector.value,
     inputAnio.value,
@@ -28,9 +29,15 @@ const crearPeli = () => {
     icon: "success",
   });
 };
+  }
+  
 
 const limpiarForm = () => {
   formularioPelicula.reset();
+  const inputs = formularioPelicula.querySelectorAll('.form-control');
+  inputs.forEach(input => {
+    input.classList.remove('is-valid', 'is-invalid');
+  });
 };
 
 const guardarlocalStorage = () => {
@@ -124,12 +131,16 @@ const editarPelicula = () => {
   //mensaje de actualizado
   const filaEditada = tablaPeli.children[posicionPeliculaBuscado];
   if (filaEditada) {
-    filaEditada.children[1].textContent = cartelera[posicionPeliculaBuscado].titulo;
-    filaEditada.children[2].textContent = cartelera[posicionPeliculaBuscado].genero;
-    filaEditada.children[3].textContent = cartelera[posicionPeliculaBuscado].duracion;
-    filaEditada.children[4].textContent = cartelera[posicionPeliculaBuscado].anio;
-    filaEditada.children[5].textContent = cartelera[posicionPeliculaBuscado].director;
-    filaEditada.children[6].textContent = cartelera[posicionPeliculaBuscado].imagen;
+    filaEditada.children[1].textContent =
+      cartelera[posicionPeliculaBuscado].titulo;
+    filaEditada.children[2].textContent =
+      cartelera[posicionPeliculaBuscado].genero;
+    filaEditada.children[3].textContent =
+      cartelera[posicionPeliculaBuscado].duracion;
+    filaEditada.children[4].textContent =
+      cartelera[posicionPeliculaBuscado].anio;
+    filaEditada.children[5].textContent =
+      cartelera[posicionPeliculaBuscado].director;
   }
 
   //agregar un mensaje al usuario
@@ -138,12 +149,61 @@ const editarPelicula = () => {
     text: `La pelicula ${cartelera[posicionPeliculaBuscado].titulo} fue modificado correctamente`,
     icon: "success",
   });
-
 };
 
-window.verPeli = (id) => {
-  window.location.href = "./pages/detallePeli.html?id="+id;
+function validarCantidadCaracteres(input, min, max) {
+  if (input.value.trim().length >= min && input.value.trim().length <= max) {
+    input.classList.add("is-valid");
+    input.classList.remove("is-invalid");
+    return true;
+  } else {
+    input.classList.add("is-invalid");
+     input.classList.remove("is-valid");
+    return false;
+  }
 }
+function validarLink() {
+  const regExp = /^[a-zA-Z]+:\/\/.+/i;
+  if (regExp.test(inputImagen.value)) {
+    inputImagen.classList.add("is-valid");
+    inputImagen.classList.remove("is-invalid");
+    return true;
+  } else {
+    inputImagen.classList.add("is-invalid");
+     inputImagen.classList.remove("is-valid");
+    return false;
+  }
+}
+function validaciones(){
+  let datosValidos =true;
+  if(!validarCantidadCaracteres(inputTitulo, 2, 50)){
+    datosValidos= false
+  }
+  
+  if(!validarCantidadCaracteres(inputGenero,2,50)){
+    datosValidos= false
+  }
+  if(!validarCantidadCaracteres(inputDuracion, 1, 10)){
+    datosValidos= false
+  }
+  if(!validarCantidadCaracteres(inputAnio, 4, 4)){
+    datosValidos= false
+  }
+  if(!validarCantidadCaracteres(inputDirector, 2, 50)){
+    datosValidos= false
+  }
+
+  if(!validarLink()){
+    datosValidos= false
+  }
+
+  return datosValidos;
+}
+
+
+window.verPeli = (id) => {
+  window.location.href = "./pages/detallePeli.html?id=" + id;
+};
 const modalContacto = new bootstrap.Modal(
   document.getElementById("modalContacto")
 );
@@ -160,7 +220,7 @@ const tablaPeli = document.querySelector("tbody");
 let idPeliculaEditar = null;
 let creandoPelicula = true;
 
-btnAgregar.addEventListener("click", ()=>{
+btnAgregar.addEventListener("click", () => {
   limpiarForm();
   idPeliculaEditar = null;
   creandoPelicula = true;
